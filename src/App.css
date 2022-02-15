@@ -1,38 +1,129 @@
-.App {
-  text-align: center;
+.container{
+  padding: 5rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card-sp-image{
+  width: 300px;
+  height: 250px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.cards-list {
+  z-index: 0;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.cards-list>* {
+  flex: 1 1 160px;
+}
+.card {
+  position: relative;
+  margin: 50px 100px;
+  width: 300px;
+  height: 250px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.card .card_image {
+  width: inherit;
+  height: inherit;
+}
+
+.card .card_image img {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+}
+
+.card .card_title {
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: -80px;
+  height: 40px;
+}
+
+
+.title-white {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.title-black {
+  color: black;
+}
+.singleView{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+} 
+
+.red-icon {
+ color: red;
+}
+.icon-center{
+  position: absolute;
+  top: 50%;
+  left: 45%;
+}
+.button {
+  background-color: #fff;
+  border-color: black;
+  border-radius: 5px;
+  border-width: 1px;
+  color: #363636;
+  cursor: pointer;
+  justify-content: center;
+  padding-bottom: calc(0.5em - 1px);
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: calc(0.5em - 1px);
+  text-align: center;
+  white-space: nowrap;
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+
+@media all and (max-width: 768px) {
+  .card-list {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+  .card{
+    margin: 20px 40px;
+    width: 300px;
+    height: 200px;
   }
+  .container{
+    padding: 1rem;
+  }
+}
+
+/* Transitions */
+
+.fade-enter {
+  opacity: 0;
+  
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: all 600ms;
+  
+}
+
+.fade-exit {
+  opacity: 1;
+  
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: all 600ms;
+  
 }
