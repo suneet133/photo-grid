@@ -13,6 +13,7 @@ function ImageCard(props) {
   return (
     <>
       {props.image && (
+
         <div className="card" onDoubleClick={(event) => doubleClicked(event)}>
           <div className="card_image">
             <img src={props.image.thumbnailUrl} alt="Placeholder image" />
@@ -31,7 +32,11 @@ function ImageCard(props) {
           <div className="card_title title-white">
             <p>{props.image.title}</p>
           </div>
+          <div className="card-footer">
+            <p><strong>Album:</strong> {props.image.albumName}</p>
+          </div>
         </div>
+
       )}
     </>
   );
@@ -49,7 +54,7 @@ function App() {
     fetch("https://jsonplaceholder.typicode.com/photos")
       .then((response) => response.json())
       .then((results) => {
-        console.log(results);
+        //console.log(results);
         setImageResults(results);
       });
   }
@@ -58,7 +63,25 @@ function App() {
     for (let i = 0; i < 9; i++) {
       array.push(imageResults[getRandomId()]);
     }
-    setPosts(array);
+
+    fetchAlbumDetails(array)
+  }
+
+  function fetchAlbumDetails(array) {
+    fetch("https://jsonplaceholder.typicode.com/albums")
+        .then((response) => response.json())
+        .then((results) => {
+          results.forEach((item) => {
+            for (let i = 0; i < array.length; i++) {
+              console.log(array[i])
+              console.log(array)
+              if (array[i].albumId === item.id) {
+                array[i].albumName = item.title;
+              }
+            }
+          })
+          setPosts(array);
+        });
   }
 
   function showSingleImage(post) {
@@ -77,28 +100,32 @@ function App() {
     assignImages();
   }, [imageResults]);
   return (
-    <div className="section is-fullheight has-background-black">
+    <div className="section has-background-black">
       {gridView && (
         <div className="container">
-          <button className="button" onClick={() => assignImages()}>
-            Refresh
-          </button>
+          <p>
+            <button className="button" onClick={() => assignImages()}>
+              Refresh
+            </button>
+          </p>
           {posts && (
-            <div className="cards-list">
-              {posts.map((post, index) => (
-                <div key={index}>
-                  <a onClick={() => showSingleImage(post)}>
-                    <ImageCard image={post} />
-                  </a>
-                </div>
-              ))}
+            <div className="centered">
+              <div className="cards-list">
+                {posts.map((post, index) => (
+                    <div key={index}>
+                      <a onClick={() => showSingleImage(post)}>
+                        <ImageCard image={post} />
+                      </a>
+                    </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
       )}
       {!gridView && (
         <div className="singleView">
-          <div className="centered">
+          <div>
             <button
               className="button"
               style={{ marginLeft: "1rem" }}
